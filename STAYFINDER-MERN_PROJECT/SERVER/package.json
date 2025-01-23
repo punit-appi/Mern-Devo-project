@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node index.js", // This is the key change
     "dev": "nodemon index.js", // Useful for development
+    "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
