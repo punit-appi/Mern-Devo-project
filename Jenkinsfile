@@ -16,6 +16,7 @@ pipeline {
             steps {
                 dir('backend') {
                     sh 'npm install'
+                    sh 'pm2 start ecosystem.config.js'
                 }
             }
         }
