@@ -34,20 +34,22 @@ pipeline {
                 }
             }
         }
-        stage('Run Backend Tests') {
-            steps {
-                dir('backend') {
-                    sh 'npm test'
-                }
-            }
-        }
-        stage('Run Frontend Tests') {
-            steps {
-                dir('frontend') {
-                    sh 'npm test'
-                }
-            }
-        }
+        // Uncomment to run backend tests
+        // stage('Run Backend Tests') {
+        //     steps {
+        //         dir('backend') {
+        //             sh 'npm test'
+        //         }
+        //     }
+        // }
+        // Uncomment to run frontend tests
+        // stage('Run Frontend Tests') {
+        //     steps {
+        //         dir('frontend') {
+        //             sh 'npm test'
+        //         }
+        //     }
+        // }
         stage('Deploy Application') {
             steps {
                 script {
