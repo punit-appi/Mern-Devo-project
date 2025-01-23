@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js", // This is the key change
+    "dev": "nodemon index.js", // Useful for development
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,7 +17,6 @@
     "mongoose": "^8.8.2",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.16",
-    "nodemon": "^3.1.7",
-    "server": "file:"
+    "nodemon": "^3.1.7" // Keep nodemon as a dev dependency
   }
 }
