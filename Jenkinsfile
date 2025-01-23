@@ -4,7 +4,7 @@ pipeline {
         NODE_ENV = 'production'
     }
     tools {
-        nodejs 'nodeJS' // Specify the Node.js version configured in Jenkins
+        nodejs 'nodejs' // Specify the Node.js version configured in Jenkins
     }
     stages {
         stage('Clone Repository') {
