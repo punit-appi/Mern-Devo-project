@@ -16,7 +16,6 @@ pipeline {
             steps {
                 dir('backend') {
                     sh 'npm install'
-                    sh script: 'pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js', cwd: pwd()
                 }
             }
         }
@@ -53,12 +52,12 @@ pipeline {
                 script {
                     // Deploy backend
                     dir('backend') {
-                        sh 'pm2 stop all || true' // Stop any existing PM2 processes
-                        sh script: 'pm2 start ecosystem.config.js', cwd: pwd()
+                        sh 'pm2 stop mern-backend || true'
+                        sh 'pm2 start npm -- start --name "mern-backend"'
                     }
                     // Deploy frontend
                     dir('frontend') {
-                        sh "cp -r build/* /var/www/html" // ***REPLACE THIS WITH YOUR ACTUAL DEPLOYMENT PATH***
+                        sh "cp -r build/* /var/lib/jenkins/workspace/Mern-project/frontend" // ***REPLACE THIS WITH YOUR ACTUAL DEPLOYMENT PATH***
                     }
                 }
             }
