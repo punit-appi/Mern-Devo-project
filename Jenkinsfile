@@ -53,7 +53,7 @@ pipeline {
                     // Deploy backend
                     dir('backend') {
                         sh 'pm2 stop all || true'
-                        sh 'pm2 start server.js --name "mern-backend"'
+                        sh 'pm2 start npm -- start --name "mern-backend"'
                     }
                     // Deploy frontend
                     dir('frontend') {
