@@ -4,7 +4,7 @@ pipeline {
         NODE_ENV = 'production'
     }
     tools {
-        nodejs 'nodejs' // Specify the Node.js version configured in Jenkins
+        nodejs 'nodejs' // Make sure 'nodejs' is the name of your Node.js installation in Jenkins
     }
     stages {
         stage('Clone Repository') {
@@ -16,7 +16,7 @@ pipeline {
             steps {
                 dir('backend') {
                     sh 'npm install'
-                    sh 'pm2 start ecosystem.config.js'
+                    sh script: 'pm2 reload ecosystem.config.js || pm2 start ecosystem.config.js', cwd: pwd()
                 }
             }
         }
@@ -34,33 +34,31 @@ pipeline {
                 }
             }
         }
-        // Uncomment to run backend tests
-        // stage('Run Backend Tests') {
-        //     steps {
-        //         dir('backend') {
-        //             sh 'npm test'
-        //         }
-        //     }
-        // }
-        // Uncomment to run frontend tests
-        // stage('Run Frontend Tests') {
-        //     steps {
-        //         dir('frontend') {
-        //             sh 'npm test'
-        //         }
-        //     }
-        // }
+        stage('Run Backend Tests') { // Uncomment if you have backend tests
+            steps {
+                dir('backend') {
+                    sh 'npm test'
+                }
+            }
+        }
+        stage('Run Frontend Tests') { // Uncomment if you have frontend tests
+            steps {
+                dir('frontend') {
+                    sh 'npm test'
+                }
+            }
+        }
         stage('Deploy Application') {
             steps {
                 script {
                     // Deploy backend
                     dir('backend') {
-                        sh 'pm2 stop all || true'
-                        sh 'pm2 start npm -- start --name "mern-backend"'
+                        sh 'pm2 stop all || true' // Stop any existing PM2 processes
+                        sh script: 'pm2 start ecosystem.config.js', cwd: pwd()
                     }
                     // Deploy frontend
                     dir('frontend') {
-                        sh 'cp -r build/* /path/to/frontend/deployment/directory'
+                        sh "cp -r build/* /var/www/html" // ***REPLACE THIS WITH YOUR ACTUAL DEPLOYMENT PATH***
                     }
                 }
             }
