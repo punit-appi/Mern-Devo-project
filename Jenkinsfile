@@ -1,74 +1,35 @@
 pipeline {
     agent any
-    environment {
-        NODE_ENV = 'production'
-    }
-    tools {
-        nodejs 'nodejs' // Make sure 'nodejs' is the name of your Node.js installation in Jenkins
-    }
+
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/punit-appi/Mern-Devo-project.git'
+                checkout scm
             }
         }
-        stage('Install Backend Dependencies') {
+
+        stage('Build Docker Images') {
             steps {
-                dir('backend') {
-                    sh 'npm install'
-                }
+                sh 'docker-compose build'
             }
         }
-        stage('Install Frontend Dependencies') {
+
+        stage('Run Docker Containers') {
             steps {
-                dir('frontend') {
-                    sh 'npm install'
-                }
+                sh 'docker-compose up -d'
             }
         }
-        stage('Build Frontend') {
+
+        stage('Post-deployment Check') {
             steps {
-                dir('frontend') {
-                    sh 'npm run build'
-                }
-            }
-        }
-        stage('Run Backend Tests') { // Uncomment if you have backend tests
-            steps {
-                dir('backend') {
-                    sh 'npm test'
-                }
-            }
-        }
-        stage('Run Frontend Tests') { // Uncomment if you have frontend tests
-            steps {
-                dir('frontend') {
-                    sh 'npm test'
-                }
-            }
-        }
-        stage('Deploy Application') {
-            steps {
-                script {
-                    // Deploy backend
-                    dir('backend') {
-                        sh 'pm2 stop mern-backend || true'
-                        sh 'pm2 start npm -- start --name "mern-backend"'
-                    }
-                    // Deploy frontend
-                    dir('frontend') {
-                        sh "cp -r build/* /var/lib/jenkins/workspace/Mern-project/frontend" // ***REPLACE THIS WITH YOUR ACTUAL DEPLOYMENT PATH***
-                    }
-                }
+                sh 'docker ps'
             }
         }
     }
+
     post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed. Check the logs for details.'
+        always {
+            echo 'Pipeline completed.'
         }
     }
 }
