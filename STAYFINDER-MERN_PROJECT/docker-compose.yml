@@ -3,23 +3,23 @@ version: '3.8'
 services:
   backend:
     build:
-      context: ./backend
+      context: ./SERVER
     ports:
       - "5000:5000"
     environment:
       - NODE_ENV=production
     volumes:
-      - ./backend:/app
+      - ./SERVER:/app
     depends_on:
       - mongo
 
   frontend:
     build:
-      context: ./frontend
+      context: ./ONLINE_PG_RESERVATION_SYSTEM
     ports:
       - "80:80"
     depends_on:
-      - backend
+      - SERVER
 
   mongo:
     image: mongo:5.0
