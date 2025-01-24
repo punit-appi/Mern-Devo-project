@@ -25,7 +25,7 @@ pipeline {
 
         stage('Build Docker Images') {
             steps {
-              sh 'docker-compose -f /var/lib/jenkins/workspace/Mern/STAYFINDER-MERN_PROJECT/docker-compose.ym build'
+              sh 'docker-compose -f /var/lib/jenkins/workspace/Mern/STAYFINDER-MERN_PROJECT/docker-compose.yml build'
               sh 'docker-compose -f /var/lib/jenkins/workspace/Mern/STAYFINDER-MERN_PROJECT/docker-compose.yml up -d'
             }
         }
