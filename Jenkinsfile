@@ -11,7 +11,6 @@ pipeline {
         stage('Verify Docker Compose Version') {
             steps {
                 sh 'docker --version'
-                sh 'docker compose version'
             }
         }
 
