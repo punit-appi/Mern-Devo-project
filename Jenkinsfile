@@ -25,14 +25,14 @@ pipeline {
 
         stage('Build Docker Images') {
             steps {
-              sh 'docker-compose -f deployment/docker-compose.yml build'
-              sh 'docker-compose -f deployment/docker-compose.yml up -d'
+              sh 'docker-compose -f /var/lib/jenkins/workspace/Mern/STAYFINDER-MERN_PROJECT/docker-compose.ym build'
+              sh 'docker-compose -f /var/lib/jenkins/workspace/Mern/STAYFINDER-MERN_PROJECT/docker-compose.yml up -d'
             }
         }
 
         stage('Run Docker Containers') {
             steps {
-                sh 'docker-compose -f deployment/docker-compose.yml up -d'
+                sh 'docker-compose -f /var/lib/jenkins/workspace/Mern/STAYFINDER-MERN_PROJECT/docker-compose.yml up -d'
             }
         }
 
