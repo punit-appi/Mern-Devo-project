@@ -12,7 +12,7 @@ pipeline {
             steps {
                 sh 'pwd'          // Print the current working directory
                 sh 'ls -la'       // List all files in the current directory
-                sh 'ls -la deployment/' // List all files in the deployment directory
+                //sh 'ls -la deployment/' // List all files in the deployment directory
             }
         }
 
