@@ -8,6 +8,13 @@ pipeline {
             }
         }
 
+        stage('Verify Directory') {
+            steps {
+                sh 'pwd'
+                sh 'ls -la'
+            }
+        }
+
         stage('Build Docker Images') {
             steps {
                 sh 'docker-compose build'
