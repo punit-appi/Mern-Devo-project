@@ -25,7 +25,8 @@ pipeline {
 
         stage('Build Docker Images') {
             steps {
-                sh 'docker-compose -f deployment/docker-compose.yml build'
+              sh 'docker-compose -f deployment/docker-compose.yml build'
+              sh 'docker-compose -f deployment/docker-compose.yml up -d'
             }
         }
 
